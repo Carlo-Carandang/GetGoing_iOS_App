@@ -11,21 +11,32 @@ import UIKit
 class SearchResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    var places: [PlaceOfInterest]?
+    var places: [PlaceOfInterest]!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Search Results"
+        self.navigationItem.title = "Search Results"
+        
+        tableView.register(UINib(nibName: "POITableViewCell", bundle: nil), forCellReuseIdentifier: "tableViewReuseIdentifier")
+        
+        tableView.estimatedRowHeight = 400.0
+        tableView.rowHeight = UITableViewAutomaticDimension
 
         tableView.delegate = self
         tableView.dataSource = self
         
-        let nib = UINib(nibName: "PlaceTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "cellReuseIdentifier")
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+    }
+}
 
+extension SearchResultsViewController{
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -33,6 +44,13 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
         cell.placeName.text = places![indexPath.row].name
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let detailsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailsViewController") as? DetailsViewController {
+            detailsViewController.place = places[indexPath.row]
+            self.navigationController?.pushViewController(detailsViewController, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,5 +70,4 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
         // Pass the selected object to the new view controller.
     }
     */
-
 }

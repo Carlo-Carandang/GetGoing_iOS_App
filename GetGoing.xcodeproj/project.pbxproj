@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE31B1B8205D5146005AA79A /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE31B1B7205D5146005AA79A /* LocationService.swift */; };
+		DE31B1BD205D7CA1005AA79A /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE31B1BC205D7CA1005AA79A /* DetailsViewController.swift */; };
+		DE31B1C1205D989A005AA79A /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE31B1C0205D989A005AA79A /* RatingControl.swift */; };
+		DE7CB7132066BC1400574AAD /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7CB7122066BC1400574AAD /* FiltersViewController.swift */; };
+		DE7CB7152066C71600574AAD /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7CB7142066C71600574AAD /* CameraViewController.swift */; };
+		DE7CB7172066C74000574AAD /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7CB7162066C74000574AAD /* PhotoViewController.swift */; };
 		DEDE6F7D20545B9A0059DD8F /* PlaceOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDE6F7C20545B9A0059DD8F /* PlaceOfInterest.swift */; };
 		DEDE6F7F20545FDF0059DD8F /* GooglePlacesAPIParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDE6F7E20545FDF0059DD8F /* GooglePlacesAPIParser.swift */; };
 		DEDE6F83205467E30059DD8F /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDE6F82205467E30059DD8F /* SearchResultsViewController.swift */; };
@@ -23,9 +29,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE31B1B7205D5146005AA79A /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		DE31B1BC205D7CA1005AA79A /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		DE31B1C0205D989A005AA79A /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
+		DE7CB7122066BC1400574AAD /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
+		DE7CB7142066C71600574AAD /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		DE7CB7162066C74000574AAD /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		DEDE6F7C20545B9A0059DD8F /* PlaceOfInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceOfInterest.swift; sourceTree = "<group>"; };
 		DEDE6F7E20545FDF0059DD8F /* GooglePlacesAPIParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesAPIParser.swift; sourceTree = "<group>"; };
-		DEDE6F82205467E30059DD8F /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchResultsViewController.swift; path = ../SearchResultsViewController.swift; sourceTree = "<group>"; };
+		DEDE6F82205467E30059DD8F /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		DEDE6F882054759A0059DD8F /* PlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTableViewCell.swift; sourceTree = "<group>"; };
 		DEDE6F892054759A0059DD8F /* PlaceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceTableViewCell.xib; sourceTree = "<group>"; };
 		DEEC0E2A205424030005460F /* GetGoing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetGoing.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +63,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE31B1B9205D550C005AA79A /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				DEEC0E4520542AE10005460F /* SearchViewController.swift */,
+				DEDE6F82205467E30059DD8F /* SearchResultsViewController.swift */,
+				DE31B1BC205D7CA1005AA79A /* DetailsViewController.swift */,
+				DE31B1C0205D989A005AA79A /* RatingControl.swift */,
+				DE7CB7122066BC1400574AAD /* FiltersViewController.swift */,
+				DE7CB7142066C71600574AAD /* CameraViewController.swift */,
+				DE7CB7162066C74000574AAD /* PhotoViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		DEEC0E21205424030005460F = {
 			isa = PBXGroup;
 			children = (
@@ -70,10 +96,10 @@
 		DEEC0E2C205424030005460F /* GetGoing */ = {
 			isa = PBXGroup;
 			children = (
-				DEEC0E4520542AE10005460F /* SearchViewController.swift */,
-				DEDE6F82205467E30059DD8F /* SearchResultsViewController.swift */,
+				DE31B1B9205D550C005AA79A /* ViewControllers */,
 				DEEC0E2D205424030005460F /* AppDelegate.swift */,
 				DEEC0E31205424030005460F /* Main.storyboard */,
+				DE31B1B7205D5146005AA79A /* LocationService.swift */,
 				DEEC0E47205446BA0005460F /* Constants.swift */,
 				DEEC0E49205448590005460F /* GooglePlacesAPI.swift */,
 				DEEC0E37205424030005460F /* Assets.xcassets */,
@@ -163,13 +189,19 @@
 			files = (
 				DEEC0E4620542AE10005460F /* SearchViewController.swift in Sources */,
 				DEDE6F83205467E30059DD8F /* SearchResultsViewController.swift in Sources */,
+				DE31B1B8205D5146005AA79A /* LocationService.swift in Sources */,
+				DE31B1BD205D7CA1005AA79A /* DetailsViewController.swift in Sources */,
+				DE31B1C1205D989A005AA79A /* RatingControl.swift in Sources */,
+				DE7CB7132066BC1400574AAD /* FiltersViewController.swift in Sources */,
 				DEDE6F8A2054759A0059DD8F /* PlaceTableViewCell.swift in Sources */,
 				DEEC0E2E205424030005460F /* AppDelegate.swift in Sources */,
 				DEEC0E36205424030005460F /* GetGoing.xcdatamodeld in Sources */,
 				DEDE6F7F20545FDF0059DD8F /* GooglePlacesAPIParser.swift in Sources */,
 				DEEC0E48205446BA0005460F /* Constants.swift in Sources */,
+				DE7CB7152066C71600574AAD /* CameraViewController.swift in Sources */,
 				DEDE6F7D20545B9A0059DD8F /* PlaceOfInterest.swift in Sources */,
 				DEEC0E4A205448590005460F /* GooglePlacesAPI.swift in Sources */,
+				DE7CB7172066C74000574AAD /* PhotoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
