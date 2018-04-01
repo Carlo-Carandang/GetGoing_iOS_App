@@ -11,15 +11,9 @@ import Foundation
 import AVFoundation
 
 class CameraViewController: UIViewController {
-
-
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-//    }
     
     @IBOutlet var previewView: UIView!
-//    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
     
     var session: AVCaptureSession?
     var photoOutput: AVCapturePhotoOutput?
