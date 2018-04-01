@@ -80,7 +80,7 @@ class DetailsViewController: UIViewController {
     
     func updateImageView(){
         if let photoReference = place.photoReference, let maxWidth = place.maxWidth {
-            GooglePlacesAPI.requestPhoto(photoreference: photoReference, maxWidth: maxWidth, completion: { (status, image) in
+            GooglePlacesAPI.requestPlaces(for: photoReference, param: maxWidth, radius: <#Int#>, completion: { (status, image) in
                 DispatchQueue.main.async {
                     if let img = image {
                         let aspectRatio = img.size.height / img.size.width

@@ -109,7 +109,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         
         if segmentControlSwitch.selectedSegmentIndex == 0 {
             startSpinner()
-            GooglePlacesAPI.requestPlaces(query: SearchParameter, completion: { (status, errorMessage, json) in
+            GooglePlacesAPI.requestPlaces(for: coordinate, param: SearchParameter, radius: 6500, completion: { (status, errorMessage, json) in
                 //print(json ?? "")
                 if status == 200, let jsonResponse = json {
                     let placesOfInterest = GooglePlacesAPIParser.parseNearbySearchResults(jsonResponse)
@@ -121,7 +121,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
             })
         } else {
             if let coordinate = currentLocation?.coordinate {
-                GooglePlacesAPI.requestPlaces(coordinate: coordinate, keyword: SearchParameter, completion: {(status, errorMessage, json) in
+                GooglePlacesAPI.requestPlaces(for: coordinate, param: SearchParameter, radius: 6500, completion: {(status, errorMessage, json) in
                     if status == 200, let jsonResponse = json {
                         let placesOfInterest = GooglePlacesAPIParser.parseNearbySearchResults(jsonResponse)
                         self.presentSearchResults(placesOfInterest)
