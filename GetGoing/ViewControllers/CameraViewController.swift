@@ -85,7 +85,6 @@ class CameraViewController: UIViewController {
             destinationViewController.photo = self.photo
         }
     }
-    
 }
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
@@ -98,5 +97,4 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
             }
         }
     }
-
 }

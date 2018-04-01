@@ -30,7 +30,7 @@ class DetailsViewController: UIViewController {
     
     func setMapViewCoordinate(){
         
-        mapView.delegate = self as! MKMapViewDelegate
+      //  mapView.delegate = self as! MKMapViewDelegate
         
         if let coordinate = place.location?.coordinate {
             let annotation = MKPointAnnotation()
@@ -66,7 +66,7 @@ class DetailsViewController: UIViewController {
         
     }
     
-    func mapView(_mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         print("tapped Info button")
         let location = view.annotation
@@ -84,7 +84,7 @@ class DetailsViewController: UIViewController {
                 DispatchQueue.main.async {
                     if let img = image {
                         let aspectRatio = img.size.height / img.size.width
-                        self.imageViewAspectRationLayoutConstraint.constant = aspectRatio
+                //        self.imageViewAspectRationLayoutConstraint.constant = aspectRatio
                         
                     }
                     self.photoImageView.image = image
@@ -92,19 +92,20 @@ class DetailsViewController: UIViewController {
             })
         }
     }
+}
 
 //    override func didReceiveMemoryWarning() {
 //        super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
 //    }
 
-    extension MKAnnotation {
+extension MKAnnotation {
         func mapItem(coordinate: CLLocationCoordinate2D)-> MKMapItem {
             let placeMark = MKPlacemark(coordinate: coordinate)
             let mapItem = MKMapItem(placemark: placeMark)
             return mapItem
-        }
     }
+}
 
     /*
     // MARK: - Navigation
@@ -115,5 +116,5 @@ class DetailsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-}
+
 

@@ -15,7 +15,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var segmentControlSwitch: UISegmentedControl!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var searchParameter: String?
+    var SearchParameter: String = ""
     var currentLocation: CLLocation?
     
     override func viewDidLoad() {
@@ -23,15 +23,15 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         
         searchTextView.delegate = self
         activityIndicator.isHidden = true
-        self.navigationItem.title = "GetGoing"
+     //   self.navigationItem.title = "GetGoing"
     }
     
-    deinit {
-        LocationService.sharedInstance.stopUpdatingLocation()
-    }
+    //deinit {
+    //    LocationService.sharedInstance.stopUpdatingLocation()
+    //}
     
     //MARK: - Activity Indicator
-    
+    /*
     func showActivityIndicator(){
         searchButton.isEnabled = false
         activityIndicator.isHidden = false
@@ -43,13 +43,19 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
     }
-    
+    */
     //MARK: - Button Actions
     @IBAction func presentFilters(_ sender: UIButton) {
         let filtersViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FiltersViewController")
         self.present(filtersViewController, animated: true, completion: nil)
     }
-    
+    //Mark: - IBActions
+    @IBAction func segmentControlValueChanged(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 1 {
+            LocationService.sharedInstance.startUpdatingLocation()
+            LocationService.sharedInstance.delegate = self
+        }
+    }
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if segue.identifier == "ShowHistory" {
 //            let destinationViewController = segue.destination as! SearchResultsViewController
@@ -57,7 +63,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
 //        }
 //    }
     
-    @IBAction func searchButtonAction(_ sender: UIButton) {
+/*    @IBAction func searchButtonAction(_ sender: UIButton) {
         searchTextView.resignFirstResponder()
         switch segmentControlSwitch.selectedSegmentIndex {
         case 0:
@@ -77,7 +83,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         case 1:
             if let coordinate = self.currentLocation?.coordinate {
                 showActivityIndicator()
-                GooglePlacesAPI.requestPlaces(for: coordinate, param: searchParameter, radius: 6500, completion: { (status, message, json) in
+                GooglePlacesAPI.requestPlaces(for: coordinate, param: SearchParameter, radius: 6500, completion: { (status, message, json) in
                     print(json ?? "")
                     if status == 200, let jsonResponse = json {
                         let placesOfInterest = GooglePlacesAPIParser.parseNearbySearchResults(jsonResponse)
@@ -95,26 +101,52 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         default:
             break;
         }
-        
-        
     }
-    
-    @IBAction func searchTypeSegmentControlSwitch(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 1 {
-            LocationService.sharedInstance.delegate = self
-            LocationService.sharedInstance.startUpdatingLocation()
-            if CLLocationManager.locationServicesEnabled() {
-                switch(CLLocationManager.authorizationStatus()) {
-                case .notDetermined:
-                    break;
-                case .restricted, .denied:
-                    segmentControlSwitch.setEnabled(false, forSegmentAt: 1)
-                case .authorizedAlways, .authorizedWhenInUse:
-                    segmentControlSwitch.setEnabled(true, forSegmentAt: 0)
+*/
+    @IBAction func performapicall(_ sender: UIButton) {
+        //print(SearchParameter)
+        searchTextView.resignFirstResponder()
+        
+        if segmentControlSwitch.selectedSegmentIndex == 0 {
+            startSpinner()
+            GooglePlacesAPI.requestPlaces(query: SearchParameter, completion: { (status, errorMessage, json) in
+                //print(json ?? "")
+                if status == 200, let jsonResponse = json {
+                    let placesOfInterest = GooglePlacesAPIParser.parseNearbySearchResults(jsonResponse)
+                    self.presentSearchResults(placesOfInterest)
+                    
                 }
+                self.stopSpinner()
+                
+            })
+        } else {
+            if let coordinate = currentLocation?.coordinate {
+                GooglePlacesAPI.requestPlaces(coordinate: coordinate, keyword: SearchParameter, completion: {(status, errorMessage, json) in
+                    if status == 200, let jsonResponse = json {
+                        let placesOfInterest = GooglePlacesAPIParser.parseNearbySearchResults(jsonResponse)
+                        self.presentSearchResults(placesOfInterest)
+                    }
+                })
             }
         }
     }
+    
+  //  @IBAction func searchTypeSegmentControlSwitch(_ sender: UISegmentedControl) {
+  //      if sender.selectedSegmentIndex == 1 {
+  //          LocationService.sharedInstance.delegate = self
+  //          LocationService.sharedInstance.startUpdatingLocation()
+  //          if CLLocationManager.locationServicesEnabled() {
+  //              switch(CLLocationManager.authorizationStatus()) {
+  //              case .notDetermined:
+  //                  break;
+  //              case .restricted, .denied:
+  //                  segmentControlSwitch.setEnabled(false, forSegmentAt: 1)
+  //              case .authorizedAlways, .authorizedWhenInUse:
+  //                  segmentControlSwitch.setEnabled(true, forSegmentAt: 0)
+  //              }
+  //          }
+  //      }
+  //  }
     
     //MARK: - Navigation
     
@@ -123,25 +155,40 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         if segue.identifier == "ShowHistory" {
             let destinationViewController = segue.destination as! SearchResultsViewController
             let loadedPlaces = loadListsFromLocalStorage() ?? []
-            destinationViewController.placesOfInterest = loadedPlaces
+            destinationViewController.places = loadedPlaces
         }
     }
     
-    func presentSearchResults(_ placesOfInterest: [PlaceOfInterest]){
-        let searchResultsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchResultsViewController") as! SearchResultsViewController
-        searchResultsViewController.placesOfInterest = placesOfInterest
-        savePlacesToLocalStorage(places: placesOfInterest)
+    func presentSearchResults(_ places: [PlaceOfInterest]){
+        let SearchResultsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchResultsViewController") as! SearchResultsViewController
+        SearchResultsViewController.places = places
+        if places.count > 0 {
+            savePlacesToLocalStorage(places: places)
+        }
         DispatchQueue.main.async {
-            self.navigationController?.pushViewController(searchResultsViewController, animated: true)
+            self.navigationController?.pushViewController(SearchResultsViewController, animated: true)
         }
     }
-    
+    //activity indicator
+    func startSpinner(){
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        self.searchButton.isEnabled = false
+    }
+    func stopSpinner(){
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+            self.searchButton.isEnabled = true
+        }
+    }
     //MARK: - TextField Delegate methods
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == searchTextView {
-            print(searchTextView.text ?? "none")
-            self.searchParameter = searchTextView.text
+            if let searchParam = textField.text {
+                SearchParameter = searchParam
+            }
         }
     }
     
@@ -170,7 +217,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     //MARK: - Local Storage
     
     func savePlacesToLocalStorage(places: [PlaceOfInterest]) {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(places, toFile: PlaceOfInterest.ArchiveURL.path)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(places, toFile: Constants.ArchiveURL.path)
         
         if !isSuccessfulSave {
             print("Failed to save places..")
@@ -180,7 +227,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     func loadListsFromLocalStorage() -> [PlaceOfInterest]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: PlaceOfInterest.ArchiveURL.path) as? [PlaceOfInterest]
     }
-    
 }
 
 

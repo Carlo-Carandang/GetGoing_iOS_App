@@ -15,9 +15,9 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Search Results"
-        
-        tableView.register(UINib(nibName: "POITableViewCell", bundle: nil), forCellReuseIdentifier: "tableViewReuseIdentifier")
+        navigationItem.title = "Search Results"
+        let nib = UINib(nibName: "PlaceTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "cellReuseIdentifier")
         
         tableView.estimatedRowHeight = 400.0
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -26,23 +26,35 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.dataSource = self
         
     }
-    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+/*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
     }
 }
 
 extension SearchResultsViewController{
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
-        
+
     }
-    
+*/
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellReuseIdentifier") as! PlaceTableViewCell
         cell.placeName.text = places![indexPath.row].name
-        
+        if let url = places[indexPath.row].icon, let data = try? Data(contentsOf: url),
+            let img = UIImage(data: data) {
+            let aspectRatio = img.size.height / img.size.width
+            cell.updateAspectRatioConstraint(aspectRatio)
+            cell.iconImageView.image = img
+            // cell.iconImageView.image = UIImage(data: data)
+        }
+        if let rating = places[indexPath.row].rating{
+            cell.ratingControlView.rating = Int(rating.rounded(.down))
+        }
         return cell
     }
     
