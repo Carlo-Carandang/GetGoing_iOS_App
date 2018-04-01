@@ -61,7 +61,6 @@ class FiltersViewController: UIViewController {
     @IBAction func cancelButtonAction(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 //MARK: - UIPickerViewDataSource, UIPickerViewDelegate

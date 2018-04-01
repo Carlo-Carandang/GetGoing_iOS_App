@@ -36,12 +36,12 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
         if let url = places[indexPath.row].icon, let data = try? Data(contentsOf: url),
             let img = UIImage(data: data) {
             let aspectRatio = img.size.height / img.size.width
-            cell.updateAspectRatioConstraint(aspectRatio)
+            cell.upDateAspectRatioConstraint(aspectRatio: aspectRatio)
             cell.iconImageView.image = img
             // cell.iconImageView.image = UIImage(data: data)
         }
         if let rating = places[indexPath.row].rating{
-            cell.ratingControlView.rating = Int(rating.rounded(.down))
+            cell.ratingControl.rating = Int(rating.rounded(.down))
         }
         return cell
     }

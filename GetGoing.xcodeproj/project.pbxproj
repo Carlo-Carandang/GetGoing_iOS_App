@@ -337,7 +337,7 @@
 		DEEC0E40205424030005460F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7MNK8544NW;
 				INFOPLIST_FILE = GetGoing/Info.plist;
@@ -352,7 +352,7 @@
 		DEEC0E41205424030005460F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7MNK8544NW;
 				INFOPLIST_FILE = GetGoing/Info.plist;

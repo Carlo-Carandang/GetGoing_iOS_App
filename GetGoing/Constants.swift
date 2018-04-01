@@ -10,7 +10,7 @@ import Foundation
 
 class Constants {
     
-    static let apiKey = "AIzaSyCm0qwP7FJZx74ytRxzIu9WLf9y5Nio7vQ"
+    static let apiKey = "AIzaSyAwczeG1wrDWTlvlDxxrZeY9qWfugzasXI"
     static let scheme = "https"
     static let host = "maps.googleapis.com"
     static let textPlaceSearch = "/maps/api/place/textsearch/json"
@@ -18,4 +18,7 @@ class Constants {
     static let placeDetails = "/maps/api/place/details/json"
     static let placePhotoSearch = "/maps/api/place/photo"
     static let radius = 5000
+    
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("PlacesOfInterest")
 }

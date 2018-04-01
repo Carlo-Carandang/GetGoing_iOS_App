@@ -15,12 +15,11 @@ protocol LocationServiceDelegate: class {
 }
 
 class LocationService: NSObject, CLLocationManagerDelegate {
-    
+
     var locationManager: CLLocationManager?
     var currentLocation: CLLocation?
     static let sharedInstance = LocationService()
     weak var delegate: LocationServiceDelegate?
-    
     
     private override init() {
         super.init()
@@ -29,15 +28,13 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         guard let locationManager = self.locationManager else {
             return
         }
-        
         if CLLocationManager.authorizationStatus() == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
         }
-        
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.delegate = self
     }
-    
+
     func startUpdatingLocation() {
         print("Starting Location Updates")
         self.locationManager?.startUpdatingLocation()
@@ -50,7 +47,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     
     // CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
+
         guard let location = locations.last else {
             return
         }
@@ -61,12 +58,6 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         // use for real time update location
         updateLocation(location)
     }
-    
-    
-//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//        // do on error
-//        updateLocationDidFailWithError(error)
-//    }
     
     // Private function
     private func updateLocation(_ currentLocation: CLLocation){
@@ -87,4 +78,3 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         delegate.tracingLocationDidFailWithError(_error: error)
     }
 }
-

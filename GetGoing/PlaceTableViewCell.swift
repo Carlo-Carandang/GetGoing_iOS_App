@@ -10,12 +10,14 @@ import UIKit
 
 class PlaceTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var category: UILabel!
-    @IBOutlet weak var vicinity: UILabel!
+    @IBOutlet weak var aspectRatioLayoutConstraint: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var placeName: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var imageViewAspectRatioLayoutConstraint: NSLayoutConstraint!
-    @IBOutlet weak var ratingControlView: RatingControl!
+    
+    @IBOutlet weak var categories: UILabel!
+    @IBOutlet weak var ratingControl: RatingControl!
     
     
     override func awakeFromNib() {
@@ -26,12 +28,11 @@ class PlaceTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        // Configure the view for the selected state
     }
     
-    func updateAspectRatioConstraint(_ ratio: CGFloat) {
-        self.imageViewAspectRatioLayoutConstraint.constant = ratio
+    func upDateAspectRatioConstraint(aspectRatio: CGFloat){
+        aspectRatioLayoutConstraint.constant = aspectRatio
     }
-    
 }
+
 
