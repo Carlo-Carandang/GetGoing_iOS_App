@@ -24,24 +24,12 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
 
         tableView.delegate = self
         tableView.dataSource = self
-        
     }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-/*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
-}
 
-extension SearchResultsViewController{
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-
-    }
-*/
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellReuseIdentifier") as! PlaceTableViewCell
         cell.placeName.text = places![indexPath.row].name
@@ -72,14 +60,4 @@ extension SearchResultsViewController{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }

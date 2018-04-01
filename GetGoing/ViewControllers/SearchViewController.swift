@@ -26,24 +26,6 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
      //   self.navigationItem.title = "GetGoing"
     }
     
-    //deinit {
-    //    LocationService.sharedInstance.stopUpdatingLocation()
-    //}
-    
-    //MARK: - Activity Indicator
-    /*
-    func showActivityIndicator(){
-        searchButton.isEnabled = false
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
-    }
-    
-    func hideActivityIndicator(){
-        searchButton.isEnabled = true
-        activityIndicator.stopAnimating()
-        activityIndicator.isHidden = true
-    }
-    */
     //MARK: - Button Actions
     @IBAction func presentFilters(_ sender: UIButton) {
         let filtersViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FiltersViewController")
@@ -56,72 +38,25 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
             LocationService.sharedInstance.delegate = self
         }
     }
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "ShowHistory" {
-//            let destinationViewController = segue.destination as! SearchResultsViewController
-//            let loadedPlaces =
-//        }
-//    }
     
-/*    @IBAction func searchButtonAction(_ sender: UIButton) {
-        searchTextView.resignFirstResponder()
-        switch segmentControlSwitch.selectedSegmentIndex {
-        case 0:
-            showActivityIndicator()
-            GooglePlacesAPI.requestPlaces(for: searchTextView.text!, param: <#String?#>, radius: <#Int#>, completion: { (status, message, json) in
-                print(json ?? "")
-                if status == 200, let jsonResponse = json {
-                    let placesOfInterest = GooglePlacesAPIParser.parseNearbySearchResults(jsonResponse)
-                    self.presentSearchResults(placesOfInterest)
-                } else {
-                    self.presentErrorMessage(statusCode: status, errorDescription: NSLocalizedString("error.description", comment: ""))
-                }
-                DispatchQueue.main.async {
-                    self.hideActivityIndicator()
-                }
-            })
-        case 1:
-            if let coordinate = self.currentLocation?.coordinate {
-                showActivityIndicator()
-                GooglePlacesAPI.requestPlaces(for: coordinate, param: SearchParameter, radius: 6500, completion: { (status, message, json) in
-                    print(json ?? "")
-                    if status == 200, let jsonResponse = json {
-                        let placesOfInterest = GooglePlacesAPIParser.parseNearbySearchResults(jsonResponse)
-                        self.presentSearchResults(placesOfInterest)
-                    } else {
-                        self.presentErrorMessage(statusCode: status, errorDescription: NSLocalizedString("error.description", comment: ""))
-                    }
-                    DispatchQueue.main.async {
-                        self.hideActivityIndicator()
-                    }
-                })
-            } else {
-                self.presentErrorMessage(errorDescription: NSLocalizedString("error.description", comment: ""))
-            }
-        default:
-            break;
-        }
-    }
-*/
     @IBAction func performapicall(_ sender: UIButton) {
         //print(SearchParameter)
         searchTextView.resignFirstResponder()
         
         if segmentControlSwitch.selectedSegmentIndex == 0 {
             startSpinner()
-            GooglePlacesAPI.requestPlaces(for: coordinate, param: SearchParameter, radius: 6500, completion: { (status, errorMessage, json) in
+            GooglePlacesAPI.requestPlaces(query: SearchParameter, completion: { (status, errorMessage, json) in
                 //print(json ?? "")
                 if status == 200, let jsonResponse = json {
                     let placesOfInterest = GooglePlacesAPIParser.parseNearbySearchResults(jsonResponse)
                     self.presentSearchResults(placesOfInterest)
-                    
                 }
                 self.stopSpinner()
                 
             })
         } else {
             if let coordinate = currentLocation?.coordinate {
-                GooglePlacesAPI.requestPlaces(for: coordinate, param: SearchParameter, radius: 6500, completion: {(status, errorMessage, json) in
+                GooglePlacesAPI.requestPlaces(coordinate: coordinate, keyword: SearchParameter, completion: {(status, errorMessage, json) in
                     if status == 200, let jsonResponse = json {
                         let placesOfInterest = GooglePlacesAPIParser.parseNearbySearchResults(jsonResponse)
                         self.presentSearchResults(placesOfInterest)
@@ -130,24 +65,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
-  //  @IBAction func searchTypeSegmentControlSwitch(_ sender: UISegmentedControl) {
-  //      if sender.selectedSegmentIndex == 1 {
-  //          LocationService.sharedInstance.delegate = self
-  //          LocationService.sharedInstance.startUpdatingLocation()
-  //          if CLLocationManager.locationServicesEnabled() {
-  //              switch(CLLocationManager.authorizationStatus()) {
-  //              case .notDetermined:
-  //                  break;
-  //              case .restricted, .denied:
-  //                  segmentControlSwitch.setEnabled(false, forSegmentAt: 1)
-  //              case .authorizedAlways, .authorizedWhenInUse:
-  //                  segmentControlSwitch.setEnabled(true, forSegmentAt: 0)
-  //              }
-  //          }
-  //      }
-  //  }
-    
+
     //MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -217,8 +135,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     //MARK: - Local Storage
     
     func savePlacesToLocalStorage(places: [PlaceOfInterest]) {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(places, toFile: Constants.ArchiveURL.path)
-        
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(places, toFile: PlaceOfInterest.ArchiveURL.path)
         if !isSuccessfulSave {
             print("Failed to save places..")
         }
@@ -229,16 +146,12 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-
 extension SearchViewController: LocationServiceDelegate {
-    
-    // MARK: LocationService Delegate
-    
     func tracingLocation(_currentLocation currentLocation: CLLocation) {
         self.currentLocation = currentLocation
     }
     
     func tracingLocationDidFailWithError(_error error: Error) {
-        print("tracing Location Error : \(error.localizedDescription)")
+        print(error.localizedDescription)
     }
 }

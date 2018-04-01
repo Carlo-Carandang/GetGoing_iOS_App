@@ -26,7 +26,6 @@ class DetailsViewController: UIViewController {
         addressLabel.text = place.formattedAddress
         updateImageView()
         setMapViewCoordinate()
-        
     }
     
     func setMapViewCoordinate(){
@@ -42,9 +41,7 @@ class DetailsViewController: UIViewController {
             centerMapOnLocation(annotation.coordinate)
             
             mapView.showsUserLocation = true
-            
         }
-        
     }
     
     func centerMapOnLocation(_ location: CLLocationCoordinate2D) {
@@ -64,7 +61,6 @@ class DetailsViewController: UIViewController {
         view.pinTintColor = UIColor.green
         
         return view
-        
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
@@ -74,9 +70,7 @@ class DetailsViewController: UIViewController {
         let launchingOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
         if let coordinate = view.annotation?.coordinate {
             location?.mapItem(coordinate:coordinate).openInMaps(launchOptions: launchingOptions)
-            
         }
-        
     }
     
     func updateImageView(){
@@ -86,7 +80,6 @@ class DetailsViewController: UIViewController {
                     if let img = image {
                         let aspectRatio = img.size.height / img.size.width
                 //        self.imageViewAspectRationLayoutConstraint.constant = aspectRatio
-                        
                     }
                     self.photoImageView.image = image
                 }
@@ -95,11 +88,6 @@ class DetailsViewController: UIViewController {
     }
 }
 
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-//    }
-
 extension MKAnnotation {
         func mapItem(coordinate: CLLocationCoordinate2D)-> MKMapItem {
             let placeMark = MKPlacemark(coordinate: coordinate)
@@ -107,15 +95,4 @@ extension MKAnnotation {
             return mapItem
     }
 }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 
