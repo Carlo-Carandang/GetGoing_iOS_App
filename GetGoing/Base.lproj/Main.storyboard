@@ -82,6 +82,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="5OQ-7q-ouk"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="lsb-Er-amY" id="0W8-Rk-9pC"/>
                         <outlet property="searchButton" destination="o8T-Xr-EX4" id="Q7V-fz-MOp"/>
                         <outlet property="searchTextView" destination="JVi-Qm-ZMW" id="RGI-56-412"/>
                         <outlet property="segmentControlSwitch" destination="UmK-ca-DFn" id="r6h-Nn-gnP"/>
@@ -198,6 +199,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Bc7-uh-env" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="x0g-gB-bbU">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
