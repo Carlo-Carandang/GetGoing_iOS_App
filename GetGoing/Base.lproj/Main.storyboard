@@ -151,12 +151,18 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="camera_button"/>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3mV-Tq-C0X">
+                                <rect key="frame" x="0.0" y="64" width="375" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="CXr-T2-HzI"/>
                     </view>
                     <navigationItem key="navigationItem" id="Xtc-Tl-7uC"/>
                     <connections>
+                        <outlet property="previewView" destination="3mV-Tq-C0X" id="B2V-g5-FZ4"/>
                         <segue destination="fUh-FB-wln" kind="show" identifier="presentPhoto" id="lKI-yb-7MC"/>
                     </connections>
                 </viewController>
