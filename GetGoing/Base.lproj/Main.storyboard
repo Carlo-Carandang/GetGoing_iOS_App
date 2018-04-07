@@ -150,9 +150,12 @@
                                 <rect key="frame" x="154" y="523" width="67" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="camera_button"/>
+                                <connections>
+                                    <action selector="capturePhoto:" destination="mN2-cb-Rgk" eventType="touchUpInside" id="8no-K4-bLq"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3mV-Tq-C0X">
-                                <rect key="frame" x="0.0" y="64" width="375" height="128"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -181,6 +184,14 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pSS-pl-A87">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMg-Zu-XLF">
+                                <rect key="frame" x="81" y="626" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="savePhoto:" destination="fUh-FB-wln" eventType="touchUpInside" id="HXy-bQ-IK9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -191,6 +202,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IRl-QC-3lb"/>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="pSS-pl-A87" id="3S2-qP-sLO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UCH-Mc-neB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -13,7 +13,6 @@ import AVFoundation
 class CameraViewController: UIViewController {
     
     @IBOutlet var previewView: UIView!
-    @IBOutlet weak var imageView: UIImageView!
     
     var session: AVCaptureSession?
     var photoOutput: AVCapturePhotoOutput?
